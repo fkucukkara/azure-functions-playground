@@ -9,6 +9,7 @@ This project demonstrates the basics of Azure Functions v4 with the .NET isolate
 ### Features
 
 - ✅ HTTP-triggered Azure Function
+- ✅ Blob-triggered Function with output binding (copy blob between containers)
 - ✅ .NET Framework 4.8 with isolated worker model
 - ✅ Application Insights integration
 - ✅ Ready for local development and Azure deployment
@@ -41,10 +42,13 @@ Create a `local.settings.json` file in the `FunctionApp101` folder:
   "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "APPLICATIONINSIGHTS_CONNECTION_STRING": "<your-connection-string>"
   }
 }
 ```
+
+> **Note:** For local development, `UseDevelopmentStorage=true` requires [Azurite](https://docs.microsoft.com/azure/storage/common/storage-use-azurite) to be running.
 
 ### 3. Run Locally
 
@@ -74,6 +78,23 @@ Expected response:
 Welcome to Azure Functions!
 ```
 
+### Test the Blob Copy Function
+
+1. Ensure Azurite is running for local storage emulation
+2. Create a container named `source-container` in your storage
+3. Upload a blob to `source-container`
+4. The function will automatically copy it to `destination-container`
+
+You can use Azure Storage Explorer or Azure CLI:
+```bash
+# Create containers (if using Azure Storage)
+az storage container create --name source-container --connection-string "<your-connection-string>"
+az storage container create --name destination-container --connection-string "<your-connection-string>"
+
+# Upload a test file
+az storage blob upload --container-name source-container --file test.txt --name test.txt --connection-string "<your-connection-string>"
+```
+
 ## 📁 Project Structure
 
 ```
@@ -84,6 +105,7 @@ FunctionApp101/
 ├── LICENSE                      # MIT License
 └── FunctionApp101/              # Function App project
     ├── Function1.cs             # HTTP trigger function
+    ├── BlobCopyFunction.cs      # Blob trigger with output binding
     ├── Program.cs               # Application entry point
     ├── FunctionApp101.csproj    # Project file
     ├── host.json                # Host configuration
@@ -99,9 +121,11 @@ Azure Functions is a serverless compute service that enables you to run event-tr
 ### Key Concepts Demonstrated
 
 1. **HTTP Triggers**: Functions that respond to HTTP requests
-2. **Isolated Worker Model**: Out-of-process execution model for better flexibility
-3. **Dependency Injection**: Using `ILoggerFactory` for logging
-4. **Application Insights**: Telemetry and monitoring integration
+2. **Blob Triggers**: Functions that respond to blob storage events
+3. **Output Bindings**: Declarative way to write data to external services
+4. **Isolated Worker Model**: Out-of-process execution model for better flexibility
+5. **Dependency Injection**: Using `ILoggerFactory` for logging
+6. **Application Insights**: Telemetry and monitoring integration
 
 ### Useful Links
 

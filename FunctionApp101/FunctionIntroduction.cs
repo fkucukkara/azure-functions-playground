@@ -1,20 +1,20 @@
+using System.Net;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
-using System.Net;
 
 namespace FunctionApp101
 {
-    public class Function1
+    public class FunctionIntroduction
     {
         private readonly ILogger _logger;
 
-        public Function1(ILoggerFactory loggerFactory)
+        public FunctionIntroduction(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<Function1>();
+            _logger = loggerFactory.CreateLogger<FunctionIntroduction>();
         }
 
-        [Function("Function1")]
+        [Function("FunctionIntroduction")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
