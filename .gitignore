@@ -137,8 +137,14 @@ publish/
 *.azurePubxml
 
 # Publish profiles - comment the following line if deploying
-Properties/PublishProfiles/
-!Properties/PublishProfiles/*.pubxml.sample
+**/Properties/PublishProfiles/
+!**/Properties/PublishProfiles/*.pubxml.sample
+
+# Service Dependencies
+**/Properties/ServiceDependencies/
+**/Properties/serviceDependencies*.json
+**/Properties/serviceDependencies*.json.user
+**/Properties/launchSettings.json
 
 # NuGet v3's project.json files produces more ignorable files
 *.nuget.props

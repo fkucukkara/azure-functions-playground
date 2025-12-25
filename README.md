@@ -189,10 +189,13 @@ func azure functionapp publish functionapp101
 
 ### Deploy using Visual Studio
 
+> **💡 Tip:** For a seamless deployment experience, create your Azure Function App in the Azure Portal first (or using Azure CLI), then use Visual Studio's publish feature to deploy to the existing Function App. This ensures all Azure resources are properly configured before deployment.
+
 1. Right-click on the project in Solution Explorer
 2. Select **Publish**
 3. Choose **Azure** → **Azure Function App (Windows)**
-4. Follow the wizard to create or select a Function App
+4. Select **Select Existing** to choose your pre-created Function App
+5. Follow the wizard to complete the deployment
 
 ## 🧪 Extending the Project
 
